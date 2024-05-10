@@ -1,4 +1,4 @@
-#include "Group.h"
+﻿#include "Group.h"
 
 Group::Group(int groupID){
 	this->groupID = groupID;
@@ -26,7 +26,7 @@ void Group::addNewStudent(Student* student) {
 	}
 	
 }
-
+//đá
 //void Group::saveGroupInfor(){}
 //
 //void Group::loadGroupInfor(){}
