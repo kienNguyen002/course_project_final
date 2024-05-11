@@ -19,9 +19,6 @@ public:
      * @param groupID ID of the group
      */
     Group(int groupID);
-
-    Group();
-
     /**
      * @brief Destructor for the Group class.
      */

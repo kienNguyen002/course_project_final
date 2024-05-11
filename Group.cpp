@@ -1,12 +1,9 @@
 ﻿#include "Group.h"
 #include <fstream>
 
-Group::Group(int groupID){
-	this->groupID = groupID;
-}
-
-Group::Group() 
+Group::Group(int groupID)
 {
+	this->groupID = groupID;
 }
 
 Group::~Group() = default;
@@ -55,7 +52,8 @@ void Group::addNewStudent(Student* student) {
 //
 void Group::displayGroupInfor() const{
 	std::cout << "\nGroup " << groupID << std::endl;
-	for (Student student : studentList) {
+	for (Student student : studentList) 
+	{
 		std::cout << student.getStudentName() << std::endl;
 	}
 }
@@ -64,7 +62,20 @@ void Group::saveGroupInfor()
 {
 	std::fstream groupMember;
 	groupMember.open("group.dat", std::ios::out | std::ios::binary);
-	groupMember.write(reinterpret_cast<char*>(&studentList), sizeof(studentList));
+
+	for (Student& student : studentList)
+	{
+		groupMember.write(reinterpret_cast<char*>(student.getStudentID()), sizeof(student.getStudentID()));
+
+		int nameLength = student.getStudentName().length();
+		groupMember.write(reinterpret_cast<char*>(&nameLength), sizeof(nameLength));
+		groupMember.write(student.getStudentName().c_str(), nameLength);
+
+		groupMember.write(reinterpret_cast<char*>(student.getGroupStatus()), sizeof(student.getGroupStatus()));
+
+		groupMember.write(reinterpret_cast<char*>(student.getGroupID()), sizeof(student.getGroupID()));
+	}
+
 	groupMember.close();
 }
 
@@ -72,13 +83,40 @@ void Group::loadGroupInfor()
 {
 	std::fstream groupMember;
 	groupMember.open("group.dat", std::ios::in | std::ios::binary);
-	if (!groupMember)
+	if (!groupMember.is_open())
 	{
 		std::cout << "file not found!";
+		return;
 	}
-	while (!groupMember.eof())
+
+	studentList.clear();
+
+	for (Student& student : studentList)
 	{
-		groupMember.read(reinterpret_cast<char*>(&studentList), sizeof(studentList));
+		int studentID;
+		bool groupStatus;
+		int groupID;
+		groupMember.read(reinterpret_cast<char*>(&studentID), sizeof(studentID));
+
+		int nameLength;
+		groupMember.read(reinterpret_cast<char*>(&nameLength), sizeof(nameLength));
+		char* nameBuffer = new char[nameLength + 1];
+		groupMember.read(nameBuffer, nameLength);
+		nameBuffer[nameLength] = '\0';
+		std::string studentName(nameBuffer);
+		delete[] nameBuffer;
+
+		groupMember.read(reinterpret_cast<char*>(&groupStatus), sizeof(groupStatus));
+
+		groupMember.read(reinterpret_cast<char*>(&groupID), sizeof(groupID));
+
+		Student student;
+		student.setGroupID(groupID);
+		student.setStudentID(studentID);
+		student.setStudentName(studentName);
+		student.setGroupStatus(groupStatus);
+		studentList.push_back(student);
 	}
+
 	groupMember.close();
 }

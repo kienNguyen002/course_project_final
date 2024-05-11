@@ -15,7 +15,7 @@ private:
     bool status;
     //The submit date.
     Time submitDate;
-    std::vector<Submission> statistic;
+    std::vector<Submission> statisticList;
 
 public:
     /**
@@ -26,7 +26,6 @@ public:
      * @param status The submission status indicating whether it's on time (true) or late (false).
      */
     Submission(int projectID, int groupID, Time submitDate, bool status);
-
     /**
      * @brief Getter method for projectID.
      * @return The projectID of the submission.
