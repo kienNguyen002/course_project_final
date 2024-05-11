@@ -47,7 +47,15 @@ void Submission::saveSubmissionInfor()
 {
 	std::fstream statisticContent;
 	statisticContent.open("group.dat", std::ios::out | std::ios::binary);
-	statisticContent.write(reinterpret_cast<char*>(&statistic), sizeof(statistic));
+
+	for (Submission statistic : statisticList)
+	{
+		statisticContent.write(reinterpret_cast<char*>(&statistic.projectID), sizeof(statistic.projectID));
+		statisticContent.write(reinterpret_cast<char*>(&statistic.groupID), sizeof(statistic.groupID));
+		statisticContent.write(reinterpret_cast<char*>(&statistic.submitDate), sizeof(statistic.submitDate));
+		statisticContent.write(reinterpret_cast<char*>(&statistic.status), sizeof(statistic.status));
+	}
+
 	statisticContent.close();
 }
 
@@ -58,25 +66,26 @@ void Submission::loadSubmissionInfor()
 	if (!statisticContent)
 	{
 		std::cout << "file not found!";
+		return;
 	}
-	while (!statisticContent.eof())
+	for (Submission statistic : statisticList)
 	{
-		statisticContent.read(reinterpret_cast<char*>(&statistic), sizeof(statistic));
+		statisticContent.read(reinterpret_cast<char*>(&statistic.projectID), sizeof(statistic.projectID));
+		statisticContent.read(reinterpret_cast<char*>(&statistic.groupID), sizeof(statistic.groupID));
+		statisticContent.read(reinterpret_cast<char*>(&statistic.submitDate), sizeof(statistic.submitDate));
+		statisticContent.read(reinterpret_cast<char*>(&statistic.status), sizeof(statistic.status));
+		
+		statisticList.push_back(statistic);
 	}
 	statisticContent.close();
 }
 
 void Submission::setStatisticList(std::vector<Submission> )
 {
-	this->statistic = statistic;
-	getProjectID();
-	getGroupID();
-	getStatus();
-	getSubmitDate();
-	statistic.push_back();
+	this->statisticList = statisticList;
 }
 
 std::vector<Submission> Submission::getStatisticList()
 {
-	return statistic;
+	return statisticList;
 }
