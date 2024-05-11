@@ -7,6 +7,11 @@ Student::Student(int studentID, std::string studentName) {
 	groupID = -1;
 }
 
+Student::Student()
+{
+
+}
+
 int Student::getStudentID() const { return studentID; };
 
 void Student::setStudentID(int studentID) { this->studentID = studentID; };

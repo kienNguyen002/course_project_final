@@ -20,6 +20,8 @@ public:
      */
     Group(int groupID);
 
+    Group();
+
     /**
      * @brief Destructor for the Group class.
      */
@@ -36,6 +38,10 @@ public:
      * @param groupID ID of the group
      */
     void setGroupID(int groupID);
+
+    //setter, getter for student list
+    void setStudentList(std::vector<Student> statistic);
+    std::vector<Student> getStudentList();
 
     /**
      * @brief Add a new student to the group.
