@@ -12,7 +12,7 @@ Submission::Submission(int projectID, int groupID, Time submitDate, bool status)
 
 std::vector<Submission> Submission::getStatisticList()
 {
-	return 
+	return submissionlist;
 }
 
 Submission::Submission() = default;
@@ -64,22 +64,22 @@ void Submission::saveSubmissionInfor(std::string fileName)
 void Submission::loadSubmissionInfor(std::string fileName)
 {
 	std::string name = fileName + ".dat";
-	std::fstream groupMember;
-	groupMember.open(name.c_str(), std::ios::in | std::ios::binary);
-	if (!groupMember.is_open())
+	std::fstream statisticList;
+	statisticList.open(name.c_str(), std::ios::in | std::ios::binary);
+	if (!statisticList.is_open())
 	{
 		std::cout << "file not found!";
 		return;
 	}
 
 	Submission submission;
-	groupMember.read(reinterpret_cast<char*>(&submission), sizeof(submission));
+	statisticList.read(reinterpret_cast<char*>(&submission), sizeof(submission));
 	this->groupID = submission.getGroupID();
 	for (Submission& sm : submission.getStatisticList())
 	{
-		this->SubmissionList.push_back(sm);
+		this->submissionlist.push_back(sm);
 	}
-	groupMember.close();
+	statisticList.close();
 }
 
 

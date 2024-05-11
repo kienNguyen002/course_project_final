@@ -15,6 +15,7 @@ private:
     bool status;
     //The submit date.
     Time submitDate;
+    std::vector<Submission> submissionlist;
 public:
     /**
      * @brief Constructor for Submission class.
