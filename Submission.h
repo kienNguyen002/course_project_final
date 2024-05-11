@@ -15,8 +15,6 @@ private:
     bool status;
     //The submit date.
     Time submitDate;
-    std::vector<Submission> statisticList;
-
 public:
     /**
      * @brief Constructor for Submission class.
@@ -26,6 +24,8 @@ public:
      * @param status The submission status indicating whether it's on time (true) or late (false).
      */
     Submission(int projectID, int groupID, Time submitDate, bool status);
+
+    Submission();
     /**
      * @brief Getter method for projectID.
      * @return The projectID of the submission.
@@ -77,12 +77,11 @@ public:
     void setSubmitDate(Time submitDate);
 
     //setter, getter for student list
-    void setStatisticList(std::vector<Submission> statistic);
     std::vector<Submission> getStatisticList();
 
     std::string submissionInfor();
 
     //method for save and load information from file
-    void saveSubmissionInfor();
-    void loadSubmissionInfor();
+    void saveSubmissionInfor(std::string);
+    void loadSubmissionInfor(std::string);
 };

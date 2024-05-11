@@ -10,6 +10,13 @@ Submission::Submission(int projectID, int groupID, Time submitDate, bool status)
 	this->status = status;
 }
 
+std::vector<Submission> Submission::getStatisticList()
+{
+	return 
+}
+
+Submission::Submission() = default;
+
 int Submission::getProjectID() const { return projectID; }
 
 
@@ -29,8 +36,10 @@ void Submission::setStatus(bool status) { this->status = status; }
 
 Time Submission::getSubmitDate() const { return submitDate; }
 
-void Submission::setSubmitDate(Time submitDate) { this->submitDate = submitDate; }
-std::string Submission::submissionInfor() {
+void Submission::setSubmitDate(Time submitDate) 
+{ this->submitDate = submitDate; }
+std::string Submission::submissionInfor() 
+{
 	std::string status_sub;
 	std::string infor;
 	if (getStatus()) {
@@ -43,49 +52,34 @@ std::string Submission::submissionInfor() {
 	return infor;
 }
 
-void Submission::saveSubmissionInfor()
+void Submission::saveSubmissionInfor(std::string fileName)
 {
 	std::fstream statisticContent;
+	std::string name = fileName + ".dat";
 	statisticContent.open("group.dat", std::ios::out | std::ios::binary);
-
-	for (Submission statistic : statisticList)
-	{
-		statisticContent.write(reinterpret_cast<char*>(&statistic.projectID), sizeof(statistic.projectID));
-		statisticContent.write(reinterpret_cast<char*>(&statistic.groupID), sizeof(statistic.groupID));
-		statisticContent.write(reinterpret_cast<char*>(&statistic.submitDate), sizeof(statistic.submitDate));
-		statisticContent.write(reinterpret_cast<char*>(&statistic.status), sizeof(statistic.status));
-	}
-
+	statisticContent.write(reinterpret_cast<char*>(this), sizeof(Submission));
 	statisticContent.close();
 }
 
-void Submission::loadSubmissionInfor()
+void Submission::loadSubmissionInfor(std::string fileName)
 {
-	std::fstream statisticContent;
-	statisticContent.open("Overall statistic.dat", std::ios::in | std::ios::binary);
-	if (!statisticContent)
+	std::string name = fileName + ".dat";
+	std::fstream groupMember;
+	groupMember.open(name.c_str(), std::ios::in | std::ios::binary);
+	if (!groupMember.is_open())
 	{
 		std::cout << "file not found!";
 		return;
 	}
-	for (Submission statistic : statisticList)
+
+	Submission submission;
+	groupMember.read(reinterpret_cast<char*>(&submission), sizeof(submission));
+	this->groupID = submission.getGroupID();
+	for (Submission& sm : submission.getStatisticList())
 	{
-		statisticContent.read(reinterpret_cast<char*>(&statistic.projectID), sizeof(statistic.projectID));
-		statisticContent.read(reinterpret_cast<char*>(&statistic.groupID), sizeof(statistic.groupID));
-		statisticContent.read(reinterpret_cast<char*>(&statistic.submitDate), sizeof(statistic.submitDate));
-		statisticContent.read(reinterpret_cast<char*>(&statistic.status), sizeof(statistic.status));
-		
-		statisticList.push_back(statistic);
+		this->SubmissionList.push_back(sm);
 	}
-	statisticContent.close();
+	groupMember.close();
 }
 
-void Submission::setStatisticList(std::vector<Submission> )
-{
-	this->statisticList = statisticList;
-}
 
-std::vector<Submission> Submission::getStatisticList()
-{
-	return statisticList;
-}

@@ -153,11 +153,5 @@ public:
 	*
 	*/
 	void statSubmissionToDate(int projectID, Time date);
-
-
-	
-
-
-
 };
 

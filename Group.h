@@ -22,6 +22,7 @@ public:
     /**
      * @brief Destructor for the Group class.
      */
+    Group();
     ~Group();
 
     /**
@@ -58,16 +59,17 @@ public:
     /**
      * @brief Save the group information to a file.
      */
-    void saveGroupInfor();
+    void saveGroupInfor(std::string );
 
     /**
      * @brief Load the group information from a file.
      */
-    void loadGroupInfor();
+    void loadGroupInfor(std::string);
 
     /**
      * @brief Display the group information.
      */
     void displayGroupInfor() const;
+
 };
 #pragma once

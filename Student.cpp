@@ -7,10 +7,7 @@ Student::Student(int studentID, std::string studentName) {
 	groupID = -1;
 }
 
-Student::Student()
-{
-
-}
+Student::Student() = default;
 
 int Student::getStudentID() const { return studentID; };
 
