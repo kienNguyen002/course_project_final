@@ -79,6 +79,7 @@ public:
 
     //setter, getter for student list
     std::vector<Submission> getStatisticList();
+    void setStatisticList(std::vector<Submission> submissionlist);
 
     std::string submissionInfor();
 

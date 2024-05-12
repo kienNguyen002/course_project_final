@@ -15,6 +15,17 @@ std::vector<Submission> Submission::getStatisticList()
 	return submissionlist;
 }
 
+void  Submission::setStatisticList(std::vector<Submission> submissionlist)
+{
+	this->submissionlist = submissionlist;
+	Submission statistic;
+	statistic.getProjectID();
+	statistic.getGroupID();
+	statistic.getStatus();
+	statistic.getSubmitDate();
+	submissionlist.push_back(statistic);
+}
+
 Submission::Submission() = default;
 
 int Submission::getProjectID() const { return projectID; }

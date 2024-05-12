@@ -38,7 +38,7 @@ public:
     void setGroupID(int groupID);
 
     //setter, getter for student list
-    void setStudentList(std::vector<Student> statistic);
+    void setStudentList(std::vector<Student> studentList);
     std::vector<Student> getStudentList();
 
     /**
