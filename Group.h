@@ -1,5 +1,6 @@
 #include<iostream>
 #include "Student.h"
+#include "Submission.h"
 #include<vector>
 #pragma once
 /**
@@ -12,6 +13,8 @@ private:
     int groupID;  
     // List of students in the group 
     std::vector<Student> studentList; 
+    std::vector<Submission> submissionlist;
+
 
 public:
     /**
@@ -40,6 +43,10 @@ public:
     //setter, getter for student list
     void setStudentList(std::vector<Student> studentList);
     std::vector<Student> getStudentList();
+
+    //setter, getter for statistic list
+    std::vector<Submission> getStatisticList();
+    void setStatisticList(std::vector<Submission> submissionlist);
 
     /**
      * @brief Add a new student to the group.
@@ -70,6 +77,10 @@ public:
      * @brief Display the group information.
      */
     void displayGroupInfor() const;
+
+    //method for save and load information from file
+    void saveSubmissionInfor(std::string);
+    void loadSubmissionInfor(std::string);
 
 };
 #pragma once

@@ -15,7 +15,6 @@ private:
     bool status;
     //The submit date.
     Time submitDate;
-    std::vector<Submission> submissionlist;
 public:
     /**
      * @brief Constructor for Submission class.
@@ -76,10 +75,6 @@ public:
      * @param The date when the project was submitted.
      */
     void setSubmitDate(Time submitDate);
-
-    //setter, getter for student list
-    std::vector<Submission> getStatisticList();
-    void setStatisticList(std::vector<Submission> submissionlist);
 
     std::string submissionInfor();
 

@@ -46,7 +46,8 @@ void Course::addNewProject(int projectID, Time dueDate){
 	projectList.push_back(newProject);
 
 }
-void Course::submit(int groupID, int projectID, Time submitDate){
+void Course::submit(int groupID, int projectID, Time submitDate)
+{
 	Project *project = findProjectbyID(projectID);
 	Time dueDate= project->getDueDate();
 	bool status = dueDate.isOnTime(submitDate);

@@ -10,22 +10,6 @@ Submission::Submission(int projectID, int groupID, Time submitDate, bool status)
 	this->status = status;
 }
 
-std::vector<Submission> Submission::getStatisticList()
-{
-	return submissionlist;
-}
-
-void  Submission::setStatisticList(std::vector<Submission> submissionlist)
-{
-	this->submissionlist = submissionlist;
-	Submission statistic;
-	statistic.getProjectID();
-	statistic.getGroupID();
-	statistic.getStatus();
-	statistic.getSubmitDate();
-	submissionlist.push_back(statistic);
-}
-
 Submission::Submission() = default;
 
 int Submission::getProjectID() const { return projectID; }
@@ -63,34 +47,6 @@ std::string Submission::submissionInfor()
 	return infor;
 }
 
-void Submission::saveSubmissionInfor(std::string fileName)
-{
-	std::fstream statisticContent;
-	std::string name = fileName + ".dat";
-	statisticContent.open("group.dat", std::ios::out | std::ios::binary);
-	statisticContent.write(reinterpret_cast<char*>(this), sizeof(Submission));
-	statisticContent.close();
-}
 
-void Submission::loadSubmissionInfor(std::string fileName)
-{
-	std::string name = fileName + ".dat";
-	std::fstream statisticList;
-	statisticList.open(name.c_str(), std::ios::in | std::ios::binary);
-	if (!statisticList.is_open())
-	{
-		std::cout << "file not found!";
-		return;
-	}
-
-	Submission submission;
-	statisticList.read(reinterpret_cast<char*>(&submission), sizeof(submission));
-	this->groupID = submission.getGroupID();
-	for (Submission& sm : submission.getStatisticList())
-	{
-		this->submissionlist.push_back(sm);
-	}
-	statisticList.close();
-}
 
 
