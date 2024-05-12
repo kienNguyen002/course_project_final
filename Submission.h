@@ -1,5 +1,4 @@
 #include "Time.h"
-#include<vector>
 #pragma once
 /**
  * @brief This class represents the submission status (result) of a project for a group.
@@ -15,7 +14,6 @@ private:
     bool status;
     //The submit date.
     Time submitDate;
-    std::vector<Submission> statisticList;
 
 public:
     /**
@@ -26,6 +24,7 @@ public:
      * @param status The submission status indicating whether it's on time (true) or late (false).
      */
     Submission(int projectID, int groupID, Time submitDate, bool status);
+
     /**
      * @brief Getter method for projectID.
      * @return The projectID of the submission.
@@ -76,13 +75,5 @@ public:
      */
     void setSubmitDate(Time submitDate);
 
-    //setter, getter for student list
-    void setStatisticList(std::vector<Submission> statistic);
-    std::vector<Submission> getStatisticList();
-
     std::string submissionInfor();
-
-    //method for save and load information from file
-    void saveSubmissionInfor();
-    void loadSubmissionInfor();
 };

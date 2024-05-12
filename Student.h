@@ -18,8 +18,6 @@ public:
 	 */
 	Student(int studentID, std::string studentName);
 
-	Student();
-
 	int getStudentID() const;
 
 	void setStudentID(int studentID);
