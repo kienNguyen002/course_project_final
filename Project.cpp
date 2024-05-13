@@ -22,9 +22,6 @@ void Project::setDescription(std::string description) { this->description = desc
 
 Time Project::getDueDate() const { return dueDate; }
 
-void Project::setDueDate(Time dueDate) 
-{ 
-	this->dueDate = dueDate; 
-}
+void Project::setDueDate(Time dueDate) { this->dueDate = dueDate; }
 
 //std::string Project::toString() {}
