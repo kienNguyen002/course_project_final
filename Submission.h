@@ -78,7 +78,4 @@ public:
 
     std::string submissionInfor();
 
-    //method for save and load information from file
-    void saveSubmissionInfor(std::string);
-    void loadSubmissionInfor(std::string);
 };
