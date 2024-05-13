@@ -1,68 +1,100 @@
-#include<iostream>
-#include"Course.h"
-
-void addGroupMember(Course &course) {
-	int groupID;
-	int studentID;
-	std::cout << "\nInput ID of the student: ";
-	std::cin >> studentID;
-	Student* st = course.findStudentByID(studentID);
-	if (st != nullptr) {
-		std::cout << "\nInput ID of the group: ";
-		std::cin >> groupID;
-		Group* group = course.findGroupByID(groupID);
-		if (group != nullptr) {
-			group->addNewStudent(st);
-			std::cout << st->toString();
-		}
-		else
-		{
-			std::cout << "Can not find the group";
-		}
-	}
-	else {
-		std::cout << "Can not find the student";
-	}
-}
+#include <iostream>
 
 int main() {
-	Course CS_256 = Course("CS256");
-	CS_256.addNewStudent(1, "John");
-	CS_256.addNewStudent(2, "David");
-	CS_256.addNewStudent(3, "Michael");
-	CS_256.addNewStudent(4, "Vladimir");
-	CS_256.addNewStudent(5, "Joe");
-	CS_256.addNewGroup(1);
-	CS_256.addNewGroup(2);
-	CS_256.addNewGroup(3);
-	CS_256.addNewGroup(4);
-	CS_256.addNewGroup(5);
-	Time dueDate = Time(23, 3, 2020);
-	CS_256.addNewProject(1, dueDate);
-	CS_256.addNewProject(2, dueDate);
-	CS_256.addNewProject(3, dueDate);
-	CS_256.addNewProject(4, dueDate);
-	CS_256.submit(1, 1, Time(21, 3, 2020));
-	CS_256.submit(1, 2, Time(21, 1, 2020));
-	CS_256.submit(1, 3, Time(21, 2, 2020));
-	CS_256.submit(1, 4, Time(21, 4, 2020));
-	CS_256.submit(2, 4, Time(21, 3, 2020));
-	CS_256.submit(2, 3, Time(21, 1, 2020));
-	CS_256.submit(3, 3, Time(20, 4, 2020));
-	CS_256.submit(3, 2, Time(17, 3, 2020));
-	CS_256.submit(4, 3, Time(15, 6, 2020));
-	CS_256.submit(4, 3, Time(20, 2, 2019));
+    int choice;
 
-	std::cout << "\nStatistic by group, group 1" << std::endl;
-	CS_256.statSubmissionByGroupID(1);
-	std::cout << '\n';
-	std::cout << "\nStatistic by group, group 2" << std::endl;
-	CS_256.statSubmissionByGroupID(2);
-	std::cout << '\n';
-	std::cout <<"\nStatistic by project, projec 2" << std::endl;
-	CS_256.statSubmissionByProjectID(2);
-	Time date = Time(22, 4 ,2024);
-	std::cout << '\n';
-	std::cout << "\nStatistic by to date, project 2, date: "<<date.toString()<< std::endl;
-	CS_256.statSubmissionToDate(2, date);
+    do {
+        system("cls");
+        std::cout << "Menu:\n";
+        std::cout << "1. Group information\n";
+        std::cout << "2. Project (assignment) deadline information\n";
+        std::cout << "3. Submit project\n";
+        std::cout << "4. Statistic\n";
+        std::cout << "5. Overall Statistic\n";
+        std::cout << "6. Find groups do not complete or submit on time\n";
+        std::cout << "7. Quit\n";
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
+
+        switch (choice) {
+        case 1:
+        {
+            int choice_1 = 0;
+
+            do {
+                system("cls");
+                std::cout << "Group information:\n";
+                std::cout << "1.1 Input information\n";
+                std::cout << "1.2 Display information\n";
+                std::cout << "1.3 Save group information\n";
+                std::cout << "1.4 Load group information\n";
+                std::cout << "1.5 Quit\n";
+                std::cout << "Enter your choice: ";
+                std::cin >> choice_1;
+
+                switch (choice_1) {
+                case 1: {
+                    std::cout << "Input information\n";
+                    system("pause");
+                    break;
+                }
+                case 2: {
+                    std::cout << "Display information\n";
+                    system("pause");
+                    break;
+                }
+                case 3: {
+                    std::cout << "Save group information\n";
+                    system("pause");
+                    break;
+                }
+                case 4: {
+                    std::cout << "Load group information\n";
+                    system("pause");
+                    break;
+                }
+                case 5:
+                    break;
+                default:
+                    std::cout << "Invalid choice. Please try again.\n";
+                    system("pause");
+                    break;
+                }
+            } while (choice_1 != 5);
+            break;
+        }
+        case 2:
+            std::cout << "Project (assignment) deadline information:\n";
+            std::cout << "2.1 Project declaration\n";
+            std::cout << "2.2 Project information\n";
+            break;
+        case 3:
+            std::cout << "Submit project\n";
+            system("pause");
+            break;
+        case 4:
+            std::cout << "Statistic\n";
+            system("pause");
+            break;
+        case 5:
+            std::cout << "Overall Statistic\n";
+            system("pause");
+            break;
+        case 6:
+            std::cout << "Find groups do not complete or submit on time\n";
+            system("pause");
+            break;
+        case 7:
+            std::cout << "Quitting...\n";
+            break;
+        default:
+            std::cout << "Invalid choice. Please try again.\n";
+            system("pause");
+            break;
+        }
+
+        std::cout << std::endl;
+    } while (choice != 7);
+
+    return 0;
 }

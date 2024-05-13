@@ -1,5 +1,7 @@
+#include<iostream>
 #include<iomanip>
 #include "Submission.h"
+#include <fstream>
 
 Submission::Submission(int projectID, int groupID, Time submitDate, bool status) {
 	this->projectID = projectID;
@@ -7,6 +9,8 @@ Submission::Submission(int projectID, int groupID, Time submitDate, bool status)
 	this->submitDate = submitDate;
 	this->status = status;
 }
+
+Submission::Submission() = default;
 
 int Submission::getProjectID() const { return projectID; }
 
@@ -27,8 +31,10 @@ void Submission::setStatus(bool status) { this->status = status; }
 
 Time Submission::getSubmitDate() const { return submitDate; }
 
-void Submission::setSubmitDate(Time submitDate) { this->submitDate = submitDate; }
-std::string Submission::submissionInfor() {
+void Submission::setSubmitDate(Time submitDate) 
+{ this->submitDate = submitDate; }
+std::string Submission::submissionInfor() 
+{
 	std::string status_sub;
 	std::string infor;
 	if (getStatus()) {
@@ -40,3 +46,7 @@ std::string Submission::submissionInfor() {
 	infor = "Project no" + std::to_string(getProjectID()) + " Group " + std::to_string(getGroupID()) + "  Status: "+ status_sub + " Submitted date: " + submitDate.toString();
 	return infor;
 }
+
+
+
+

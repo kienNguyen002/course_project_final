@@ -1,4 +1,5 @@
 #include "Time.h"
+#include<vector>
 #pragma once
 /**
  * @brief This class represents the submission status (result) of a project for a group.
@@ -14,7 +15,6 @@ private:
     bool status;
     //The submit date.
     Time submitDate;
-
 public:
     /**
      * @brief Constructor for Submission class.
@@ -25,6 +25,7 @@ public:
      */
     Submission(int projectID, int groupID, Time submitDate, bool status);
 
+    Submission();
     /**
      * @brief Getter method for projectID.
      * @return The projectID of the submission.
@@ -76,4 +77,5 @@ public:
     void setSubmitDate(Time submitDate);
 
     std::string submissionInfor();
+
 };
