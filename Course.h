@@ -152,11 +152,10 @@ public:
 	* @return kiểm tra xem đã có bao nhiêu nhóm đã nộp bài tới ngày muốn kiểm tra (danh sách cách đối tượng submission)
 	*
 	*/
-	void statOverall(Time date);
+	void statSubmissionToDate(int projectID, Time date);
 
-	void saveAllGroupInfor(std::string fileName);
 
-	void loadAllGroupInfor(std::string fileName);
+	
 
 
 
