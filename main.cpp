@@ -6,7 +6,7 @@ Course CS_256("CS_256");
 static int student_id_auto_increasement = 1;
 Time currentTime(14, 5, 2024);
 
-void inputInformation(){
+void inputInformation() {
     int num;
     std::string name;
     std::cout << "The number of groups in the class?";
@@ -28,13 +28,13 @@ void inputInformation(){
             cin.ignore();
             getline(cin, name);
             CS_256.addNewStudent(student_id_auto_increasement, name);
-            Student* student =CS_256.findStudentByID(student_id_auto_increasement);
+            Student* student = CS_256.findStudentByID(student_id_auto_increasement);
             CS_256.addStudentToAGroup(student, i);
             student_id_auto_increasement++;
         }
     }
 }
-void displayInformation(){
+void displayInformation() {
     char display;
     int groupID;
     do
@@ -57,11 +57,11 @@ void displayInformation(){
         std::cin >> display;
     } while (display == 'Y');
 }
-void project_declaration(){
+void project_declaration() {
     int numproject;
     std::cout << "How many projects in the course  ";
     std::cin >> numproject;
-    for (int i = 1; i <=numproject; i++) {
+    for (int i = 1; i <= numproject; i++) {
         std::cout << "Project " << i << "\n";
         int id, d, m, y;
         std::string description;
@@ -78,14 +78,14 @@ void project_declaration(){
         CS_256.findProjectbyID(id)->setDescription(description);
     }
 }
-void project_information(){
+void project_information() {
     int projectID;
     std::cout << "What project do you want to check?";
     std::cin >> projectID;
     std::cout << "Description: " << CS_256.findProjectbyID(projectID)->getDescription() << '\n';
     std::cout << "Deadline: " << CS_256.findProjectbyID(projectID)->getDueDate().toString();
 }
-void submit_project(){
+void submit_project() {
     //Nhap tuan tu
     int grouID, projectID, sd, sm, sy;
     std::cout << "What group number?";
@@ -97,19 +97,19 @@ void submit_project(){
     Time submissiondate(sd, sm, sy);
     CS_256.submit(grouID, projectID, submissiondate);
 }
-void displaysByProject(){
+void displaysByProject() {
     int pid;
     std::cout << "Please enter project ID: ";
     std::cin >> pid;
     CS_256.statSubmissionByProjectID(pid, currentTime);
 }
-void displaysByGroup(){
+void displaysByGroup() {
     int gid;
     std::cout << "Please enter group ID: ";
     std::cin >> gid;
     CS_256.statSubmissionByGroupID(gid, currentTime);
 }
-void disPlaybyStatus(){
+void disPlaybyStatus() {
     //tìm tất cả những nhóm chưa nộp bài hoặc nộp bài muộn
 }
 void overrallStat(Time date) {
@@ -182,7 +182,7 @@ int main() {
             } while (choice_1 != 5);
             break;
         }
-        case 2:{
+        case 2: {
             int choice_2 = 0;
             do {
                 system("cls");
@@ -274,7 +274,7 @@ int main() {
         }
                std::cout << std::endl;
         }
-        } while (choice != 7);
- 
-            return 0;
-        }
+    } while (choice != 7);
+
+    return 0;
+}

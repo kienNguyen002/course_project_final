@@ -22,7 +22,7 @@ private:
 public:
 	/**
 	* @brief Constructor
-	* 
+	*
 	* @param courseID the signature indenfier of this course
 	*/
 	Course(std::string courseID);
@@ -31,36 +31,36 @@ public:
 	void setNumberOfProjects(int number_of_projects);
 	int getNumberOfGroups() const;
 	void setNumbeOfGroups(int number_of_groups);
-	
+
 	/**
 	* @brief This funtion use for adding new student into studentList
-	* 
+	*
 	* @param studentName - the name of the student
 	*/
-    void addNewStudent(int studentID, std::string studentName);
+	void addNewStudent(int studentID, std::string studentName);
 
 	/**
 	* @brief This function use for adding a new group into groupList
 	* @brief - Must add at least one student into this, unless delete this group
 	*
-	* @param groupID The ID of the group, has to be unique 
-	* 
+	* @param groupID The ID of the group, has to be unique
+	*
 	*/
-    void addNewGroup(int groupID);
+	void addNewGroup(int groupID);
 
 	/**
 	* @brief This funtion use for adding a new student into a group
 	* @param *student a student poiter
 	* @param groupID The ID of group student will be add
 	*/
-	void addStudentToAGroup(Student *student, int groupID );
+	void addStudentToAGroup(Student* student, int groupID);
 
 	/**
 	* @brief This funtion use for deleting a student from a group
 	* @brief Check if student is in the Group.studentList
 	* @brief If has, use this function: group.deleteStudent(Student *student)
 	* @brief Else the student was not in group<ID>
-	* 
+	*
 	* @param *student a student poiter
 	* @param groupID The ID of group student will be delete
 	*/
@@ -68,7 +68,7 @@ public:
 
 	/**
 	* @brief This funtion use for adding a new project into the projectList
-	* 
+	*
 	* @param projectID The signature identifier of a project, has to be unique
 	*/
 	void addNewProject(int projectID, Time dueDate);
@@ -77,10 +77,10 @@ public:
 	* @brief This function is submit method, use for submitting a submisstion
 	* @brief This will check the group ID, project ID and whether is was submitted ontime
 	* @brief A submission object will be added in to submitionList after this method.
-	* @brief Submission(int projectID, int groupID, int submitDate, bool status) 
+	* @brief Submission(int projectID, int groupID, int submitDate, bool status)
 	* - status will be true if ontime (compare submitDate and project.dueDate) or false otherwise
 	* @brief Use function findProjectByID (int projectID) to get the information abou project
-	* 
+	*
 	* @param groupID The ID of group
 	* @param projectID The ID of project
 	* @param submitDate the submitted date
@@ -90,10 +90,10 @@ public:
 	Student* findStudentByID(int studentID);
 	/**
 	* @brief This function use for finding a group by its ID
-	* 
+	*
 	* @param ID The ID of group
 	* @return A group poiter - reference to addess of this group. Or nullptr if not found
-	* 
+	*
 	*/
 	Group* findGroupByID(int ID);
 
@@ -138,7 +138,7 @@ public:
 	* @brief Kiểm tra kết quả nộp bài theo trạng thái (đúng hạn hoặc muộn)
 	*
 	* @param status - trạng thái muốn kiểm tra, 0 là muộn, 1 là đúng hạn
-	* 
+	*
 	* @return kết quả nộp bài của các nhóm theo trạng thái muốn kiểm tra (một danh sách các đối tượng submission)
 	*
 	*/
@@ -152,10 +152,11 @@ public:
 	* @return kiểm tra xem đã có bao nhiêu nhóm đã nộp bài tới ngày muốn kiểm tra (danh sách cách đối tượng submission)
 	*
 	*/
-	void statSubmissionToDate(int projectID, Time date);
+	void statOverall(Time date);
 
+	void saveAllGroupInfor(std::string fileName);
 
-	
+	void loadAllGroupInfor(std::string fileName);
 
 
 

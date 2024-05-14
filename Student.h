@@ -11,6 +11,7 @@ private:
 	//ID of the student's group, or -1 if not in a group
 	int groupID;
 public:
+	Student();
 	/**
 	 * @brief Constructor for the Student class.
 	 *
