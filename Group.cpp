@@ -1,5 +1,6 @@
 ﻿#include "Group.h"
 
+
 Group::Group(int groupID){
 	this->groupID = groupID;
 }
@@ -26,11 +27,14 @@ void Group::addNewStudent(Student* student) {
 	}
 	
 }
-//đá
-//void Group::saveGroupInfor(){}
-//
-//void Group::loadGroupInfor(){}
-//
+
+void Group::saveGroupInfor(std::fstream& outfile) {
+
+};
+
+void Group::loadGroupInfor(std::fstream& infile){
+}
+
 void Group::displayGroupInfor() const{
 	std::cout << "\nGroup " << groupID << std::endl;
 	for (Student student : studentList) {

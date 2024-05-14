@@ -123,7 +123,7 @@ public:
 	* @return kết quả nộp bài của tất cả các nhóm theo project (một danh sách các đối tượng submission)
 	*
 	*/
-	void statSubmissionByProjectID(int projectID);
+	void statSubmissionByProjectID(int projectID, Time currentTime);
 
 	/**
 	* @brief This function use for finding a lis of submisstion with same ID
@@ -132,7 +132,7 @@ public:
 	* @return Kết quả nộp bài của một nhóm cho tất cả các project (một danh sách các đối tượng submission)
 	*
 	*/
-	void statSubmissionByGroupID(int groupID);
+	void statSubmissionByGroupID(int groupID, Time currentTime);
 
 	/**
 	* @brief Kiểm tra kết quả nộp bài theo trạng thái (đúng hạn hoặc muộn)
@@ -152,10 +152,11 @@ public:
 	* @return kiểm tra xem đã có bao nhiêu nhóm đã nộp bài tới ngày muốn kiểm tra (danh sách cách đối tượng submission)
 	*
 	*/
-	void statSubmissionToDate(int projectID, Time date);
+	void statOverall(Time date);
 
+	void saveAllGroupInfor(std::string fileName);
 
-	
+	void loadAllGroupInfor(std::string fileName);
 
 
 

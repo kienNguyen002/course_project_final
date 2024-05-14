@@ -1,4 +1,4 @@
-
+﻿
 #include "Course.h"
 
 Course::Course(std::string courseID){}
@@ -61,7 +61,7 @@ Student* Course::findStudentByID(int studentID) {
 
 }
 Group* Course::findGroupByID(int ID){
-	for (Group group : groupList) {
+	for (auto group : groupList) {
 		if (group.getGroupID() == ID) {
 			return &group;
 		}
@@ -70,7 +70,7 @@ Group* Course::findGroupByID(int ID){
 }
 
 Project* Course::findProjectbyID(int ID){
-	for (Project project : projectList) {
+	for (auto project : projectList) {
 		if (project.getProjectID() ==ID){
 			return &project;
 		}
@@ -87,16 +87,26 @@ Submission* Course::findSubmission(int projectID, int groupID){
 	return nullptr;
 }
 
-void Course::statSubmissionByProjectID(int projectID){
+void Course::statSubmissionByProjectID(int projectID, Time currentTime){
 	if (findProjectbyID(projectID) == nullptr) {
 		std::cout << "Can not find project id";
 	}
 	else {
 		int i = 0;
-		for (auto submission : submissionList) {
-			if (submission.getProjectID() == projectID) {
-				std::cout << submission.submissionInfor() << std::endl;
-				i++;
+		for (auto group : groupList) {
+			int groupID = group.getGroupID();
+			for (auto submission : submissionList) {
+				if (findSubmission(projectID, groupID)!= nullptr) {
+					std::cout << submission.submissionInfor() << std::endl;
+					i++;
+				}
+				else if (findProjectbyID(projectID)->getDueDate().isOnTime(currentTime)) {
+					std::cout<< "Project no" + std::to_string(projectID)<<" Group "<< std::to_string(groupID)<<"  Status: not submitted";
+				}
+				else
+				{
+					std::cout << "Project no" + std::to_string(projectID) << " Group " << std::to_string(groupID) << "  Status: not yet submitted";
+				}
 			}
 		}
 		if (i == 0) {
@@ -105,16 +115,26 @@ void Course::statSubmissionByProjectID(int projectID){
 	}
 }
 
-void Course::statSubmissionByGroupID(int groupID) {
+void Course::statSubmissionByGroupID(int groupID, Time currentTime) {
 	if (findGroupByID(groupID) == nullptr) {
 		std::cout << "Can not find group id";
 	}
 	else {
 		int i = 0;
-		for (auto submission : submissionList) {
-			if (submission.getGroupID() == groupID) {
-				std::cout << submission.submissionInfor() << std::endl;
-				i++;
+		for (auto project : projectList) {
+			int projectID = project.getProjectID();
+			for (auto submission : submissionList) {
+				if (findSubmission(projectID, groupID) != nullptr) {
+					std::cout << submission.submissionInfor() << std::endl;
+					i++;
+				}
+				else if (findProjectbyID(projectID)->getDueDate().isOnTime(currentTime)) {
+					std::cout << "Project no" + std::to_string(projectID) << " Group " << std::to_string(groupID) << "  Status: not submitted";
+				}
+				else
+				{
+					std::cout << "Project no" + std::to_string(projectID) << " Group " << std::to_string(groupID) << "  Status: not yet submitted";
+				}
 			}
 		}
 		if (i == 0) {
@@ -141,20 +161,28 @@ void Course::statSubmissionByStatus(int projectID, bool status){
 	}
 }
 
-void Course::statSubmissionToDate(int projectID, Time date){
-	if (findProjectbyID(projectID) == nullptr) {
-		std::cout << "Can not fine the project ID";
-	}
-	else {
-		int i = 0;
-		for (auto submission : submissionList) {
-			if (submission.getProjectID() == projectID && (submission.getSubmitDate().isOnTime(date)==false)){
-				std::cout << submission.submissionInfor()<< std::endl;
-				i++;
-			}
-		}
-		if (i == 0) {
-			std::cout << "Can not find submission information";
+void Course::statOverall(Time date) {
+	for (auto project : projectList) {
+		if (project.getDueDate().isOnTime(date) == false) {
+			Course::statSubmissionByProjectID(project.getProjectID(), date);
 		}
 	}
+}
+
+void Course::saveAllGroupInfor(std::string fileName) {
+	std::fstream outfile(fileName);
+	for (auto group : groupList)
+	{
+		group.saveGroupInfor(outfile);
+	}
+
+}
+
+void Course::loadAllGroupInfor(std::string fileName) {
+	std::fstream infile(fileName);
+	//đọc hết file
+	//tạo đối tượng group từ file - > grouplist.pushbach()
+	//group.display();
+
+
 }

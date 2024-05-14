@@ -1,4 +1,5 @@
 #include<iostream>
+#include <fstream>
 #include "Student.h"
 #include<vector>
 #pragma once
@@ -55,12 +56,12 @@ public:
     /**
      * @brief Save the group information to a file.
      */
-    void saveGroupInfor();
+    void saveGroupInfor(std::fstream&);
 
     /**
      * @brief Load the group information from a file.
      */
-    void loadGroupInfor();
+    void loadGroupInfor(std::fstream&);
 
     /**
      * @brief Display the group information.
