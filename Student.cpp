@@ -3,8 +3,8 @@
 Student::Student(int studentID, std::string studentName) {
 	this->studentID = studentID;
 	this->studentName = studentName;
-	groupStatus = false;
-	groupID = -1;
+	this->groupStatus = false;
+	this->groupID = -1;
 }
 
 Student::Student() = default;

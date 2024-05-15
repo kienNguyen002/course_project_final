@@ -22,10 +22,11 @@ void inputInformation() {
             std::cout << "Each group has at least one member. Please re-enter data: ";
             std::cin >> numstudent;
         }
+        cin.clear();
+        cin.ignore();
         for (int j = 1; j <= numstudent; j++)
         {
             std::cout << "Name of student " << j << " ";
-            cin.ignore();
             getline(cin, name);
             CS_256.addNewStudent(student_id_auto_increasement, name);
             Student* student = CS_256.findStudentByID(student_id_auto_increasement);
@@ -43,7 +44,6 @@ void displayInformation() {
         std::cin >> display;
         if (display == 'A') {
             for (int i = 1; i <= CS_256.getNumberOfGroups(); i++) {
-                std::cout << "Group " << i << std::endl;
                 CS_256.findGroupByID(i)->displayGroupInfor();
             }
         }
@@ -86,17 +86,43 @@ void project_information() {
     std::cout << "Deadline: " << CS_256.findProjectbyID(projectID)->getDueDate().toString();
 }
 void submit_project() {
-    //Nhap tuan tu
+
+    std::cout << "Enter sequentially:\n";
+
     int grouID, projectID, sd, sm, sy;
-    std::cout << "What group number?";
-    std::cin >> grouID;
-    std::cout << "What project number?";
-    std::cin >> projectID;
-    std::cout << "What submission date?";
-    std::cin >> sd >> sm >> sy;
-    Time submissiondate(sd, sm, sy);
-    CS_256.submit(grouID, projectID, submissiondate);
+
+    char submitt;
+
+    std::cout << "If submit then type S else type N:";
+
+    for (int i = 1; i <= CS_256.getNumberOfGroups(); i++) {
+
+        std::cout << "Group " << i << '\n';
+
+        for (int j = 1; j <= CS_256.findGroupByID(i)->getNumberOfStudent(); j++) {
+
+            std::cout << "Student " << j << ':';
+
+            std::cin >> submitt;
+
+            if (submitt == 'S') {
+
+                std::cout << "Submission date(dd/mm/yyyy): ";
+
+                std::cin >> sd >> sm >> sy;
+
+                Time submissiondate(sd, sm, sy);
+
+                CS_256.submit(i, j, submissiondate);
+
+            }
+
+        }
+
+    }
+
 }
+
 void displaysByProject() {
     int pid;
     std::cout << "Please enter project ID: ";

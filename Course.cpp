@@ -4,13 +4,13 @@
 Course::Course(std::string courseID) {}
 
 int Course::getNumberOfProjects() const {
-	return number_of_projects;
+	return projectList.size();
 }
 void Course::setNumberOfProjects(int number_of_projects) {
 	this->number_of_projects = number_of_projects;
 }
 int Course::getNumberOfGroups() const {
-	return number_of_groups;
+	return groupList.size();
 }
 void Course::setNumbeOfGroups(int number_of_groups) {
 	this->number_of_groups = number_of_groups;
@@ -51,19 +51,19 @@ void Course::submit(int groupID, int projectID, Time submitDate) {
 	submissionList.push_back(submission_result);
 }
 Student* Course::findStudentByID(int studentID) {
-	for (Student student : studentList) {
-		if (student.getStudentID() == studentID)
+	for (int i = 0; i < studentList.size(); i++) {
+		if (studentList[i].getStudentID() == studentID)
 		{
-			return &student;
+			return &studentList[i];
 		}
 	}
 	return nullptr;
 
 }
 Group* Course::findGroupByID(int ID) {
-	for (auto group : groupList) {
-		if (group.getGroupID() == ID) {
-			return &group;
+	for (int i = 0; i < groupList.size(); i++) {
+		if (groupList[i].getGroupID() == ID) {
+			return &groupList[i];
 		}
 	}
 	return nullptr;
