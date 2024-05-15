@@ -11,7 +11,7 @@ void inputInformation() {
     std::string name;
     std::cout << "The number of groups in the class?";
     std::cin >> num;
-    //CS_256.setNumbeOfGroups(num);
+    ////////CS_256.setNumbeOfGroups(num);push
     for (int i = 1; i <= num; i++)
     {
         CS_256.addNewGroup(i);
