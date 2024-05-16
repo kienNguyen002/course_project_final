@@ -70,18 +70,18 @@ Group* Course::findGroupByID(int ID) {
 }
 
 Project* Course::findProjectbyID(int ID) {
-	for (auto project : projectList) {
-		if (project.getProjectID() == ID) {
-			return &project;
+	for (int i = 0; i < projectList.size(); i ++) {
+		if (projectList[i].getProjectID() == ID) {
+			return &projectList[i];
 		}
 	}
 	return nullptr;
 }
 
 Submission* Course::findSubmission(int projectID, int groupID) {
-	for (auto submission : submissionList) {
-		if ((submission.getGroupID() == groupID) && (submission.getProjectID() == projectID)) {
-			return &submission;
+	for (int i = 0; i < submissionList.size(); i++) {
+		if ((submissionList[i].getGroupID() == groupID) && (submissionList[i].getProjectID() == projectID)) {
+			return &submissionList[i];
 		}
 	}
 	return nullptr;
@@ -92,25 +92,21 @@ void Course::statSubmissionByProjectID(int projectID, Time currentTime) {
 		std::cout << "Can not find project id";
 	}
 	else {
-		int i = 0;
-		for (auto group : groupList) {
-			int groupID = group.getGroupID();
-			for (auto submission : submissionList) {
-				if (findSubmission(projectID, groupID) != nullptr) {
-					std::cout << submission.submissionInfor() << std::endl;
-					i++;
+		for (int i = 0; i < groupList.size(); i++) {
+			int groupID = groupList[i].getGroupID();
+			Submission* submission = findSubmission(projectID, groupID);
+			if (submission != nullptr) {
+				std::cout << submission->submissionInfor() << std::endl;
+				std::cout << "Project " << projectID <<  " deadline: " << findProjectbyID(projectID)->getDueDate().toString() << std::endl;
+			}
+			else {
+				if (findProjectbyID(projectID)->getDueDate().isOnTime(currentTime)) {
+					std::cout << "Project no" + std::to_string(projectID) << " Group " << std::to_string(groupID) << "  Status: not submitted\n";
 				}
-				else if (findProjectbyID(projectID)->getDueDate().isOnTime(currentTime)) {
-					std::cout << "Project no" + std::to_string(projectID) << " Group " << std::to_string(groupID) << "  Status: not submitted";
-				}
-				else
-				{
-					std::cout << "Project no" + std::to_string(projectID) << " Group " << std::to_string(groupID) << "  Status: not yet submitted";
+				else {
+					std::cout << "Project no" + std::to_string(projectID) << " Group " << std::to_string(groupID) << "  Status: not yet submitted\n";
 				}
 			}
-		}
-		if (i == 0) {
-			std::cout << "Can not find submission information" << projectID;
 		}
 	}
 }
@@ -164,7 +160,7 @@ void Course::statSubmissionByStatus(int projectID, bool status) {
 void Course::statOverall(Time date) {
 	for (auto project : projectList) {
 		if (project.getDueDate().isOnTime(date) == false) {
-			Course::statSubmissionByProjectID(project.getProjectID(), date);
+			statSubmissionByProjectID(project.getProjectID(), date);
 		}
 	}
 }

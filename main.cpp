@@ -53,7 +53,7 @@ void displayInformation() {
             std::cin >> groupID;
             CS_256.findGroupByID(groupID)->displayGroupInfor();
         }
-        std::cout << "Do you want to display information (Y/N)?";
+        std::cout << "Do you want to display more information (Y/N)?";
         std::cin >> display;
     } while (display == 'Y');
 }
@@ -88,32 +88,24 @@ void project_information() {
 void submit_project() {
 
     std::cout << "Enter sequentially:\n";
-
-    int grouID, projectID, sd, sm, sy;
-
+    int groupID, projectID, sd, sm, sy;
     char submitt;
-
-    std::cout << "If submit then type S else type N:";
-
-    for (int i = 1; i <= CS_256.getNumberOfGroups(); i++) {
-
-        std::cout << "Group " << i << '\n';
-
-        for (int j = 1; j <= CS_256.findGroupByID(i)->getNumberOfStudent(); j++) {
-
-            std::cout << "Student " << j << ':';
-
+    std::cout << "If submit then type S else type N:\n";
+    for (projectID = 1; projectID <= CS_256.getNumberOfProjects(); projectID++) {
+        std::cout << "Project " << projectID << '\n';
+        for ( groupID = 1; groupID <= CS_256.getNumberOfGroups(); groupID++) {
+            std::cout << "Group " << groupID << ':';
             std::cin >> submitt;
 
             if (submitt == 'S') {
 
-                std::cout << "Submission date(dd/mm/yyyy): ";
+                std::cout << "\nSubmission date(dd/mm/yyyy): ";
 
                 std::cin >> sd >> sm >> sy;
 
                 Time submissiondate(sd, sm, sy);
 
-                CS_256.submit(i, j, submissiondate);
+                CS_256.submit(groupID, projectID, submissiondate);
 
             }
 
@@ -253,18 +245,19 @@ int main() {
                     std::cout << "4.2 Displays a table show the state of submission of all projects  of a group.\n";
                     std::cout << "4.3 Quit\n";
                     std::cin >> choice_4;
-                    system("pause");
                     break;
                 }
                 case 1: {
                     std::cout << "Displays a table show the state of submission of a project for groups.\n";
                     displaysByProject();
+                    choice_4 = 0;
                     system("pause");
                     break;
                 }
                 case 2: {
                     std::cout << "Displays a table show the state of submission of all projects  of a group.\n";
                     displaysByGroup();
+                    choice_4 = 0;
                     system("pause");
                     break;
                 }
@@ -280,7 +273,7 @@ int main() {
             break; }
         case 5: {
             std::cout << "Overall Statistic\n";
-            //help
+            overrallStat(currentTime);
             system("pause");
             break;
         }
