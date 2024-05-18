@@ -1,17 +1,27 @@
 ﻿#include<iostream>
 #include"Course.h"
+#include<cctype>
 using namespace std;
 
 Course CS_256("CS_256");
 static int student_id_auto_increasement = 1;
-Time currentTime(14, 5, 2024);
-
+Time currentTime(19, 5, 2024);
+int cinswitchcase(char num) {
+    cout << "Please type a number between 1 and " << num << '\n';
+    string read;
+    getline(cin, read);
+    while ((read.length() != 1) || (!isdigit(read[0])) || (read[0] < '1') || (read[0] > num)) {
+        cout << "Invalid choice. Please type a number between 1 and " << num << '\n';
+        getline(cin, read);
+    }
+    return read[0] - '0';
+}
 void inputInformation() {
     int num;
     std::string name;
     std::cout << "The number of groups in the class?";
     std::cin >> num;
-    //CS_256.setNumbeOfGroups(num);
+    ////////CS_256.setNumbeOfGroups(num);push
     for (int i = 1; i <= num; i++)
     {
         CS_256.addNewGroup(i);
@@ -22,10 +32,11 @@ void inputInformation() {
             std::cout << "Each group has at least one member. Please re-enter data: ";
             std::cin >> numstudent;
         }
+        cin.clear();
+        cin.ignore();
         for (int j = 1; j <= numstudent; j++)
         {
             std::cout << "Name of student " << j << " ";
-            cin.ignore();
             getline(cin, name);
             CS_256.addNewStudent(student_id_auto_increasement, name);
             Student* student = CS_256.findStudentByID(student_id_auto_increasement);
@@ -43,17 +54,18 @@ void displayInformation() {
         std::cin >> display;
         if (display == 'A') {
             for (int i = 1; i <= CS_256.getNumberOfGroups(); i++) {
-                std::cout << "Group " << i << std::endl;
                 CS_256.findGroupByID(i)->displayGroupInfor();
             }
         }
-        if (display == 'E') {
+        else
+            if (display == 'E') {
 
-            std::cout << "What group you want to display information? ";
-            std::cin >> groupID;
-            CS_256.findGroupByID(groupID)->displayGroupInfor();
-        }
-        std::cout << "Do you want to display information (Y/N)?";
+                std::cout << "What group you want to display information? ";
+                std::cin >> groupID;
+                CS_256.findGroupByID(groupID)->displayGroupInfor();
+            }
+            else { std::cout << "Just type A or E"; }
+        std::cout << "If you want to continue displaying more information press Y:";
         std::cin >> display;
     } while (display == 'Y');
 }
@@ -67,10 +79,10 @@ void project_declaration() {
         std::string description;
         std::cout << "ID:";
         std::cin >> id;
-        std::cout << "description";
+        std::cout << "Description: ";
         std::cin.ignore();
         getline(std::cin, description);
-        std::cout << "Deadline:";
+        std::cout << "Deadline(dd mm yyyy): ";
         std::cin >> d >> m >> y;
         Time deadline(d, m, y);
         std::cout << std::endl;
@@ -80,27 +92,38 @@ void project_declaration() {
 }
 void project_information() {
     int projectID;
-    std::cout << "What project do you want to check?";
+    std::cout << "Enter ID to display the project you want to look up?";
     std::cin >> projectID;
-    std::cout << "Description: " << CS_256.findProjectbyID(projectID)->getDescription() << '\n';
-    std::cout << "Deadline: " << CS_256.findProjectbyID(projectID)->getDueDate().toString();
+    if (CS_256.findProjectbyID(projectID) != nullptr) {
+        std::cout << "Description: " << CS_256.findProjectbyID(projectID)->getDescription() << '\n';
+        std::cout << "Deadline: " << CS_256.findProjectbyID(projectID)->getDueDate().toString();
+    }
+    else std::cout << "Error ID\n";
 }
 void submit_project() {
-    //Nhap tuan tu
-    int grouID, projectID, sd, sm, sy;
-    std::cout << "What group number?";
-    std::cin >> grouID;
-    std::cout << "What project number?";
-    std::cin >> projectID;
-    std::cout << "What submission date?";
-    std::cin >> sd >> sm >> sy;
-    Time submissiondate(sd, sm, sy);
-    CS_256.submit(grouID, projectID, submissiondate);
+    int groupID, projectID, sd, sm, sy;
+    char submitt;
+    std::cout << "***If you have submitted your assignment, press S, otherwise enter anything***\n";
+    for (projectID = 1; projectID <= CS_256.getNumberOfProjects(); projectID++) {
+        std::cout << "+Project " << projectID << '\n';
+        for (groupID = 1; groupID <= CS_256.getNumberOfGroups(); groupID++) {
+            std::cout << "\t+Group " << groupID << ':';
+            std::cin >> submitt;
+            if (submitt == 'S') {
+                std::cout << "\n\tSubmission date(dd mm yyyy): ";
+                std::cin >> sd >> sm >> sy;
+                Time submissiondate(sd, sm, sy);
+                CS_256.submit(groupID, projectID, submissiondate);
+            }
+        }
+    }
 }
 void displaysByProject() {
     int pid;
     std::cout << "Please enter project ID: ";
+
     std::cin >> pid;
+
     CS_256.statSubmissionByProjectID(pid, currentTime);
 }
 void displaysByGroup() {
@@ -109,14 +132,45 @@ void displaysByGroup() {
     std::cin >> gid;
     CS_256.statSubmissionByGroupID(gid, currentTime);
 }
-void disPlaybyStatus() {
-    //tìm tất cả những nhóm chưa nộp bài hoặc nộp bài muộn
+void disPlayByStatus() {
+    std::cout << "Enter Status you want to check: ";
+    std::string status;
+    getline(cin, status);
+    if (status == "late") {
+        for (int projectID = 1; projectID <= CS_256.getNumberOfProjects(); projectID++) {
+            CS_256.statSubmissionByStatus(projectID, 0);
+        }
+    }
+    else if (status == "not_submit") {
+        for (int projectID = 1; projectID <= CS_256.getNumberOfProjects(); projectID++) {
+            for (int groupID = 1; groupID <= CS_256.getNumberOfGroups(); groupID++) {
+                if (CS_256.findSubmission(projectID, groupID) == nullptr) {
+                    if (CS_256.findProjectbyID(projectID)->getDueDate().isOnTime(currentTime) != true) {
+                        std::cout << "Group " << groupID << " did not submitted project " << projectID << std::endl;
+                    }
+                }
+            }
+        }
+    }
 }
-void overrallStat(Time date) {
-    CS_256.statOverall(date);
+void overrallStat() {
+    Time date = currentTime;
+    char ch;
+    std::cout << "Do you want to check with particular date? ";
+    std::cout << "Choose Y/N (N - check with current time): ";
+    std::cin >> ch;
+    if (tolower(ch) == 'y') {
+        std::cout << "Enter date (dd mm yyyy): ";
+        int dd, mm, yyyy;
+        std::cin >> dd >> mm >> yyyy;
+        date = Time(dd, mm, yyyy);
+        CS_256.statOverall(date);
+    }
+    else if (tolower(ch) == 'n') {
+        CS_256.statOverall(date);
+    }
 }
 int main() {
-
     int choice;
     do {
         system("cls");
@@ -129,7 +183,7 @@ int main() {
         std::cout << "6. Find groups do not complete or submit on time\n";
         std::cout << "7. Quit\n";
         std::cout << "Enter your choice: ";
-        std::cin >> choice;
+        choice = cinswitchcase('7');
 
         switch (choice) {
         case 1:
@@ -146,7 +200,6 @@ int main() {
                 std::cout << "1.5 Quit\n";
                 std::cout << "Enter your choice: ";
                 std::cin >> choice_1;
-
                 switch (choice_1) {
                 case 1: {
                     std::cout << "Input information\n";
@@ -162,13 +215,18 @@ int main() {
                 }
                 case 3: {
                     std::cout << "Save group information\n";
-                    //tuan;
+                    CS_256.saveAllGroupInfor("group.dat");
+                    CS_256.saveAllProjectInfor("project.dat");
+                    CS_256.saveAllSubmissionInfor("submission.dat");
                     system("pause");
                     break;
                 }
                 case 4: {
                     std::cout << "Load group information\n";
-                    //tuan;
+                    CS_256.loadAllGroupInfor("group.dat");
+                    CS_256.displayGroupList();
+                    CS_256.loadAllProjectInfor("project.dat");
+                    CS_256.loadAllSubmissionInfor("submission.dat");
                     system("pause");
                     break;
                 }
@@ -227,18 +285,19 @@ int main() {
                     std::cout << "4.2 Displays a table show the state of submission of all projects  of a group.\n";
                     std::cout << "4.3 Quit\n";
                     std::cin >> choice_4;
-                    system("pause");
                     break;
                 }
                 case 1: {
                     std::cout << "Displays a table show the state of submission of a project for groups.\n";
                     displaysByProject();
+                    choice_4 = 0;
                     system("pause");
                     break;
                 }
                 case 2: {
                     std::cout << "Displays a table show the state of submission of all projects  of a group.\n";
                     displaysByGroup();
+                    choice_4 = 0;
                     system("pause");
                     break;
                 }
@@ -254,18 +313,17 @@ int main() {
             break; }
         case 5: {
             std::cout << "Overall Statistic\n";
-            //help
+            overrallStat();
             system("pause");
             break;
         }
         case 6: {
             std::cout << "Find groups do not complete or submit on time\n";
-            //not_complete_or_submit();
+            disPlayByStatus();
             system("pause");
             break; }
         case 7: {
             std::cout << "Quitting...\n";
-            //help
             break; }
         default: {
             std::cout << "Invalid choice. Please try again.\n";

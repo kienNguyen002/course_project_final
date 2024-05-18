@@ -8,7 +8,7 @@ class Submission
 {
 private:
     //The ID of project 
-    int projectID; 
+    int projectID;
     //The ID of group
     int groupID;
     //The submission status indicating whether it's on time (true) or late (false)
@@ -75,6 +75,13 @@ public:
      * @param The date when the project was submitted.
      */
     void setSubmitDate(Time submitDate);
+
+    void saveSubmissionInfor(std::fstream&);
+
+    /**
+     * @brief Load the group information from a file.
+     */
+    void loadSubmissionInfor(std::fstream&);
 
     std::string submissionInfor();
 

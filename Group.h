@@ -55,20 +55,16 @@ public:
 
     int getNumberOfStudent() const;
 
-
     /**
-     * @brief Save the group information to a file.
+     * @brief Display the group information.
      */
+    void displayGroupInfor();
+
     void saveGroupInfor(std::fstream&);
 
     /**
      * @brief Load the group information from a file.
      */
-    Group loadGroupInfor(std::fstream&);
-
-    /**
-     * @brief Display the group information.
-     */
-    void displayGroupInfor() const;
+    void loadGroupInfor(std::fstream&);
 };
 #pragma once

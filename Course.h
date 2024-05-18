@@ -1,5 +1,4 @@
-﻿#include<iostream>
-#include "Group.H"
+﻿#include "Group.H"
 #include "Submission.h"
 #include "Project.h"
 #pragma once
@@ -25,13 +24,14 @@ public:
 	*
 	* @param courseID the signature indenfier of this course
 	*/
-	Course(std::string courseID);
+	Course(std::string courseID, std::string groupListFileName, std::string projectListLifeName, std::string submissionListFileName);
 
 	int getNumberOfProjects() const;
 	void setNumberOfProjects(int number_of_projects);
 	int getNumberOfGroups() const;
 	void setNumbeOfGroups(int number_of_groups);
 
+	Course(std::string CourseID);
 	/**
 	* @brief This funtion use for adding new student into studentList
 	*
@@ -155,10 +155,16 @@ public:
 	void statOverall(Time date);
 
 	void saveAllGroupInfor(std::string fileName);
-
 	void loadAllGroupInfor(std::string fileName);
 
+	void saveAllSubmissionInfor(std::string fileName);
+	void loadAllSubmissionInfor(std::string fileName);
 
+	void displayGroupList();
+	void displaySubmissionList();
 
+	void saveAllProjectInfor(std::string fileName);
+	void loadAllProjectInfor(std::string fileName);
+
+	void displayProjectList();
 };
-

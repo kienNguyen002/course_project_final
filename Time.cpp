@@ -4,14 +4,14 @@
 
 
 bool Time::checkValidDate(int day, int month, int year) {
-	if ((day < 0 || day > 31 )|| (month < 0 || month > 12)) {
+	if ((day < 0 || day > 31) || (month < 0 || month > 12)) {
 		std::cout << "Invalid at 1";
 		return false;
 	}
-	if( (isLeapYear(year)== true) && (month == 2) && (day == 29) ){
+	if ((isLeapYear(year) == true) && (month == 2) && (day == 29)) {
 		return true;
 	}
-	else if (DAYS_OF_MONTH[(month-1)] >= day)
+	else if (DAYS_OF_MONTH[(month - 1)] >= day)
 	{
 		return true;
 	}
@@ -21,14 +21,14 @@ bool Time::checkValidDate(int day, int month, int year) {
 		return false;
 	}
 }
-bool Time::isLeapYear(int year){
+bool Time::isLeapYear(int year) {
 	if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
 		return true;
 	else
 		return false;
 }
 Time::Time() = default;
-Time::Time(int day, int month, int year){
+Time::Time(int day, int month, int year) {
 	if (checkValidDate(day, month, year)) {
 		this->day = day;
 		this->month = month;
@@ -50,12 +50,31 @@ void Time::setDay(int day) { this->day = day; }
 void Time::setMonth(int month) { this->month = month; }
 void Time::setYear(int year) { this->year = year; }
 
-bool Time::isOnTime(Time date) const{
-	if ((date.getYear() <= this->year) && (date.getMonth() <= this->month) && (date.getDay() <= this->day)) {
+bool Time::isOnTime(Time date) const {
+	if (date.getYear() == this->year) {
+		if (date.getMonth() == this->month) {
+			if (date.getDay() <= this->day) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else if (date.getMonth() > this->month) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	else if (date.getYear() > this->year) {
+		return false;
+	}
+	else {
 		return true;
 	}
-	return false;
 }
+
 std::string Time::toString() const {
 	std::string dateFomat = std::to_string(day) + '/' + std::to_string(month) + '/' + std::to_string(year);
 	return dateFomat;
