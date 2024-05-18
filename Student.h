@@ -1,4 +1,5 @@
 #include<string>
+#include<fstream>
 #pragma once
 class Student
 {
@@ -69,6 +70,10 @@ public:
      *
      * @return A string containing the student's name and group information.
      */
+	
+	void writeToStream(std::ofstream& out);
+	void readToStream(std::ifstream& in);
+
 	std::string toString();
 
 };

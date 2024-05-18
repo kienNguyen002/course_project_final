@@ -25,7 +25,7 @@ public:
 	*
 	* @param courseID the signature indenfier of this course
 	*/
-	Course(std::string courseID);
+	Course(std::string courseID, std::string groupListFileName, std::string projectListLifeName, std::string submissionListFileName);
 
 	int getNumberOfProjects() const;
 	void setNumberOfProjects(int number_of_projects);
@@ -155,10 +155,17 @@ public:
 	void statOverall(Time date);
 
 	void saveAllGroupInfor(std::string fileName);
-
 	void loadAllGroupInfor(std::string fileName);
 
+	void saveAllSubmissionInfor(std::string fileName);
+	void loadAllSubmissionInfor(std::string fileName);
 
+	void displayGroupList();
+	void displaySubmissionList();
 
+	void saveAllProjectInfor(std::string fileName);
+	void loadAllProjectInfor(std::string fileName);
+
+	void displayProjectList();
 };
 
