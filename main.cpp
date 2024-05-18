@@ -303,6 +303,7 @@ int main() {
 //	Course course("CS256");
 //	string fileName = "D:\\C++\\NPHD\\course_project_final\\group.dat";
 //	string sfileName = "statistic.dat";
+//	string pfileName = "project.dat";
 //	course.addNewGroup(1);
 //	course.addNewStudent(1, "dad");
 //	course.addNewStudent(2, "tv");
@@ -335,4 +336,7 @@ int main() {
 //	std::cout << "End load";
 //	course.displayGroupList();
 //	course.displaySubmissionList();
+//	course.saveAllProjectInfor(pfileName);
+//	course.loadAllProjectInfor(pfileName);
+//	course.displayProjectList();
 //}
