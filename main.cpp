@@ -297,3 +297,42 @@ int main() {
 
     return 0;
 }
+
+//int main()
+//{
+//	Course course("CS256");
+//	string fileName = "D:\\C++\\NPHD\\course_project_final\\group.dat";
+//	string sfileName = "statistic.dat";
+//	course.addNewGroup(1);
+//	course.addNewStudent(1, "dad");
+//	course.addNewStudent(2, "tv");
+//	course.addNewStudent(5, "tv");
+//	course.addNewStudent(6, "tv");
+//	course.addStudentToAGroup(course.findStudentByID(1), 1);
+//	course.addStudentToAGroup(course.findStudentByID(2), 1);
+//	course.addNewGroup(2);
+//	course.addNewGroup(3);
+//	course.addNewStudent(3, "rt");
+//	course.addNewStudent(4, "ad");
+//	course.addStudentToAGroup(course.findStudentByID(3), 2);
+//	course.addStudentToAGroup(course.findStudentByID(4), 2);
+//	course.addStudentToAGroup(course.findStudentByID(5), 3);
+//	course.addStudentToAGroup(course.findStudentByID(6), 3);
+//	course.saveAllGroupInfor(fileName);
+//	std::cout << "End save";
+//	course.addNewProject(1, Time(10, 9, 2024));
+//	course.addNewProject(2, Time(10, 2, 2024));
+//	course.addNewProject(3, Time(10, 2, 2024));
+//	course.submit(1, 1, Time(10, 10, 2024));
+//	course.submit(1, 2, Time(10, 10, 2025));
+//	course.submit(1, 3, Time(9, 10, 2024));
+//	course.submit(2, 1, Time(10, 10, 2024));
+//	course.submit(2, 2, Time(10, 10, 2024));
+//	course.submit(3, 1, Time(10, 10, 2024));
+//	course.saveAllSubmissionInfor(sfileName);
+//	course.loadAllSubmissionInfor(sfileName);
+//	course.loadAllGroupInfor(fileName);
+//	std::cout << "End load";
+//	course.displayGroupList();
+//	course.displaySubmissionList();
+//}

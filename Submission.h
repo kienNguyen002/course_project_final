@@ -76,6 +76,13 @@ public:
      */
     void setSubmitDate(Time submitDate);
 
+    void saveSubmissionInfor(std::fstream&);
+
+    /**
+     * @brief Load the group information from a file.
+     */
+    void loadSubmissionInfor(std::fstream&);
+
     std::string submissionInfor();
 
 };
