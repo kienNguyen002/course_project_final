@@ -3,8 +3,8 @@
 Student::Student(int studentID, std::string studentName) {
 	this->studentID = studentID;
 	this->studentName = studentName;
-	groupStatus = false;
-	groupID = -1;
+	this->groupStatus = false;
+	this->groupID = -1;
 }
 
 Student::Student() = default;
@@ -24,6 +24,14 @@ bool Student::getGroupStatus() const { return groupStatus; }
 void Student::setGroupID(int groupID) { this->groupID = groupID; }
 
 int  Student::getGroupID() const { return groupID; }
+
+//void Student::writeToStream(std::ofstream& out){
+//	out << studentID << " " << studentName << " " << groupStatus << " " << groupID << std::endl;
+//}
+//void Student::readToStream(std::ifstream& in){
+//	in >> studentID;
+//
+//}
 
 std::string Student::toString() {
 	std::string studentInfor =

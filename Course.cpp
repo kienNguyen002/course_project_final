@@ -193,6 +193,32 @@ void Course::displayGroupList()
 	}
 }
 
+void Course::loadAllGroupInfor(std::string fileName)
+{
+	std::fstream inFile;
+	inFile.open(fileName, std::ios::in | std::ios::binary);
+	if (!inFile.is_open())
+	{
+		std::cerr << "file not found!";
+		return;
+	}
+	size_t listSize;
+	inFile.read(reinterpret_cast<char*>(&listSize), sizeof(listSize));
+	groupList.resize(listSize);
+	for (Group& gr : groupList) {
+		gr.loadGroupInfor(inFile);
+	}
+	inFile.close();
+}
+
+void Course::displayGroupList()
+{
+	for (Group& gr : groupList) {
+		gr.displayGroupInfor();
+		std::cout << std::endl;
+	}
+}
+
 void Course::saveAllGroupInfor(std::string fileName) {
 	std::fstream outfile(fileName, std::ios::out | std::ios::binary);
 	if (!outfile.is_open())
