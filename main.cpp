@@ -11,7 +11,7 @@ void inputInformation() {
     std::string name;
     std::cout << "The number of groups in the class?";
     std::cin >> num;
-    //CS_256.setNumbeOfGroups(num);
+    ////////CS_256.setNumbeOfGroups(num);push
     for (int i = 1; i <= num; i++)
     {
         CS_256.addNewGroup(i);
@@ -22,10 +22,11 @@ void inputInformation() {
             std::cout << "Each group has at least one member. Please re-enter data: ";
             std::cin >> numstudent;
         }
+        cin.clear();
+        cin.ignore();
         for (int j = 1; j <= numstudent; j++)
         {
             std::cout << "Name of student " << j << " ";
-            cin.ignore();
             getline(cin, name);
             CS_256.addNewStudent(student_id_auto_increasement, name);
             Student* student = CS_256.findStudentByID(student_id_auto_increasement);
@@ -43,7 +44,6 @@ void displayInformation() {
         std::cin >> display;
         if (display == 'A') {
             for (int i = 1; i <= CS_256.getNumberOfGroups(); i++) {
-                std::cout << "Group " << i << std::endl;
                 CS_256.findGroupByID(i)->displayGroupInfor();
             }
         }
@@ -53,7 +53,7 @@ void displayInformation() {
             std::cin >> groupID;
             CS_256.findGroupByID(groupID)->displayGroupInfor();
         }
-        std::cout << "Do you want to display information (Y/N)?";
+        std::cout << "Do you want to display more information (Y/N)?";
         std::cin >> display;
     } while (display == 'Y');
 }
@@ -86,17 +86,35 @@ void project_information() {
     std::cout << "Deadline: " << CS_256.findProjectbyID(projectID)->getDueDate().toString();
 }
 void submit_project() {
-    //Nhap tuan tu
-    int grouID, projectID, sd, sm, sy;
-    std::cout << "What group number?";
-    std::cin >> grouID;
-    std::cout << "What project number?";
-    std::cin >> projectID;
-    std::cout << "What submission date?";
-    std::cin >> sd >> sm >> sy;
-    Time submissiondate(sd, sm, sy);
-    CS_256.submit(grouID, projectID, submissiondate);
+
+    std::cout << "Enter sequentially:\n";
+    int groupID, projectID, sd, sm, sy;
+    char submitt;
+    std::cout << "If submit then type S else type N:\n";
+    for (projectID = 1; projectID <= CS_256.getNumberOfProjects(); projectID++) {
+        std::cout << "Project " << projectID << '\n';
+        for ( groupID = 1; groupID <= CS_256.getNumberOfGroups(); groupID++) {
+            std::cout << "Group " << groupID << ':';
+            std::cin >> submitt;
+
+            if (submitt == 'S') {
+
+                std::cout << "\nSubmission date(dd/mm/yyyy): ";
+
+                std::cin >> sd >> sm >> sy;
+
+                Time submissiondate(sd, sm, sy);
+
+                CS_256.submit(groupID, projectID, submissiondate);
+
+            }
+
+        }
+
+    }
+
 }
+
 void displaysByProject() {
     int pid;
     std::cout << "Please enter project ID: ";
@@ -227,18 +245,19 @@ int main() {
                     std::cout << "4.2 Displays a table show the state of submission of all projects  of a group.\n";
                     std::cout << "4.3 Quit\n";
                     std::cin >> choice_4;
-                    system("pause");
                     break;
                 }
                 case 1: {
                     std::cout << "Displays a table show the state of submission of a project for groups.\n";
                     displaysByProject();
+                    choice_4 = 0;
                     system("pause");
                     break;
                 }
                 case 2: {
                     std::cout << "Displays a table show the state of submission of all projects  of a group.\n";
                     displaysByGroup();
+                    choice_4 = 0;
                     system("pause");
                     break;
                 }
@@ -254,7 +273,7 @@ int main() {
             break; }
         case 5: {
             std::cout << "Overall Statistic\n";
-            //help
+            overrallStat(currentTime);
             system("pause");
             break;
         }

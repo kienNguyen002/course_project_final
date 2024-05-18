@@ -54,8 +54,8 @@ void Group::saveGroupInfor(std::fstream& outfile)
 	outfile.write(reinterpret_cast<char*>(this), sizeof(Group));
 }
 
-Group Group::loadGroupInfor(std::fstream& infile){
-	infile.write(reinterpret_cast<char*>(this), sizeof(Group));
-}
+//Group Group::loadGroupInfor(std::fstream& infile){
+//	infile.write(reinterpret_cast<char*>(this), sizeof(Group));
+//}
 
  
