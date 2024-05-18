@@ -1,7 +1,12 @@
 ﻿
 #include "Course.h"
 
-Course::Course(std::string courseID) {}
+Course::Course(std::string courseID, std::string groupListFileName, std::string projectListLifeName, std::string submissionListFileName)
+{
+	loadAllGroupInfor(groupListFileName);
+	loadAllProjectInfor(projectListLifeName);
+	loadAllSubmissionInfor(submissionListFileName);
+}
 
 int Course::getNumberOfProjects() const {
 	return projectList.size();

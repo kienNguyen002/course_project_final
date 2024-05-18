@@ -25,7 +25,7 @@ public:
 	*
 	* @param courseID the signature indenfier of this course
 	*/
-	Course(std::string courseID);
+	Course(std::string courseID, std::string groupListFileName, std::string projectListLifeName, std::string submissionListFileName);
 
 	int getNumberOfProjects() const;
 	void setNumberOfProjects(int number_of_projects);
